@@ -1,4 +1,5 @@
-import type { Preset, PresetOptions } from '@unocss/core'
+import type { Preset, PresetOptions, UtilObject } from '@unocss/core'
+
 import { cacheTransformEscapESelector, defaultRules } from 'unplugin-transform-class/utils'
 import { extractorArbitraryVariants } from '@unocss/extractor-arbitrary-variants'
 import preflights from './preflights'
@@ -171,7 +172,15 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset<Theme> {
     rules,
     variants: variants(options),
     options,
-    postprocess(css) {
+    postprocess(css: UtilObject) {
+      // 处理单位
+      const pxToVwRE = /(-?[\.\d]+)px/g
+      css.entries.forEach((i) => {
+        const value = i[1]
+        if (typeof value === 'string' && pxToVwRE.test(value))
+          i[1] = value.replace(pxToVwRE, (_, p1) => `${p1}rpx`)
+      })
+
       // 是否转义class
       if (options.transform)
         css.selector = cacheTransformEscapESelector(css.selector, options.transformRules)
@@ -179,24 +188,6 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset<Theme> {
       // 设置变量前缀
       if (options.variablePrefix !== 'un-')
         VarPrefixPostprocessor(options.variablePrefix!, css)
-
-      // taro 处理 h5 和 小程序 px 和 rpx 转换
-      if (options.platform === 'taro') {
-        const { taroWebpack, designWidth, deviceRatio } = options
-
-        if (options.isH5) {
-          // h5 px rpx 转 rem
-          taroH5CssRemTransform(css, taroWebpack!, designWidth!, deviceRatio!)
-        }
-        else {
-          // 小程序 taro 处理 px 为 rpx
-          taroCssPxTransform(css, designWidth!, deviceRatio!)
-        }
-      }
-
-      // uniapp vue2 webpack: h5 rpx 处理
-      if (options.platform === 'uniapp' && options.isH5)
-        uniAppVue2CssRpxTransform(css)
     },
     preflights: options.preflight ? preflights(options.isH5, options.platform) : [],
     prefix: options.prefix,
