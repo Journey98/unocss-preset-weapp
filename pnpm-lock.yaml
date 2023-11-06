@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   '@rollup/pluginutils':
     specifier: ^5.0.5
@@ -35,6 +31,15 @@ devDependencies:
     specifier: ^20.8.10
     version: 20.8.10
   '@unocss/autocomplete':
+    specifier: ^0.57.2
+    version: 0.57.2
+  '@unocss/preset-mini':
+    specifier: ^0.57.2
+    version: 0.57.2
+  '@unocss/preset-rem-to-px':
+    specifier: ^0.57.2
+    version: 0.57.2
+  '@unocss/preset-uno':
     specifier: ^0.57.2
     version: 0.57.2
   bumpp:
@@ -1533,13 +1538,42 @@ packages:
 
   /@unocss/core@0.57.2:
     resolution: {integrity: sha512-iTmowhObigxeqcxtEW4v+mAEQtFslifTG0Fiw8kXs3+t4L6fcnjj0i7/FtBbz+nOxrWyt2EzdkUyjpLGQa/yCw==}
-    dev: false
 
   /@unocss/extractor-arbitrary-variants@0.57.2:
     resolution: {integrity: sha512-f6sc8pfgHbJua1VzdpFSPW92lNyIBRl93avRNk+HM4iWAhxBPD3LsCxSS7kOnQg2tFe6YsRkm8QkuF6SjFq1AA==}
     dependencies:
       '@unocss/core': 0.57.2
-    dev: false
+
+  /@unocss/preset-mini@0.57.2:
+    resolution: {integrity: sha512-ZahZ8TWa40SVnJw6fYFhYzLFMCZU3obMBNl0otallevoooKLXIDZL2VmHxFDqCvwaAk9DYsAzPrqUpNWr6bPgA==}
+    dependencies:
+      '@unocss/core': 0.57.2
+      '@unocss/extractor-arbitrary-variants': 0.57.2
+      '@unocss/rule-utils': 0.57.2
+    dev: true
+
+  /@unocss/preset-rem-to-px@0.57.2:
+    resolution: {integrity: sha512-+bAtcnJzq8rlj5/35UNfYoYWkyILkqAIOEV8wmddAwPAt/ZkjvDYKgLEewtaAh+mFFVeLCnvaZ+Tz7tlwfOMZg==}
+    dependencies:
+      '@unocss/core': 0.57.2
+    dev: true
+
+  /@unocss/preset-uno@0.57.2:
+    resolution: {integrity: sha512-A5fZmz8i1fSwKMUN8olRAUskkTAPjFsdw19Iem5yOHtK/9NYM3eQPaHDdHldhfZ7/51oF27poavdPfe8KKugQQ==}
+    dependencies:
+      '@unocss/core': 0.57.2
+      '@unocss/preset-mini': 0.57.2
+      '@unocss/preset-wind': 0.57.2
+      '@unocss/rule-utils': 0.57.2
+    dev: true
+
+  /@unocss/preset-wind@0.57.2:
+    resolution: {integrity: sha512-d8s4PFcIakzcmAoECTY3Ft2Wtb5nn+AvVGj5j52YpVt5ShTuGVlk5UbF9kpfEfzLigtkHcNivM24D1UTfR/MBg==}
+    dependencies:
+      '@unocss/core': 0.57.2
+      '@unocss/preset-mini': 0.57.2
+      '@unocss/rule-utils': 0.57.2
+    dev: true
 
   /@unocss/rule-utils@0.57.2:
     resolution: {integrity: sha512-fgAc5gkZo8JLDe9vMisofSck3k1nN05+kblKhrEaq/+gS5bxHzL9VNExtiTbT00wyMKGjak/uC7qDMbdVmUhYg==}
@@ -1547,7 +1581,6 @@ packages:
     dependencies:
       '@unocss/core': 0.57.2
       magic-string: 0.30.5
-    dev: false
 
   /@vitest/expect@0.34.6:
     resolution: {integrity: sha512-QUzKpUQRc1qC7qdGo7rMK3AkETI7w18gTCUrsNnyjjJKYiuUB9+TQK3QnR1unhCnWRC0AbKv2omLGQDF/mIjOw==}
@@ -5739,3 +5772,7 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: true
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
