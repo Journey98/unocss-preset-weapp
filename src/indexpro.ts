@@ -53,7 +53,7 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
     preflight: true,
     ...options,
     // 此处置空，避免 presetUno 里面的 postprocess 重复处理
-    variablePrefix: '',
+    variablePrefix: '333',
   }
 
   // 此处因为 preflight: false 所以 presetUno 里面的 preflights 不会生效
@@ -71,6 +71,16 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
         if (typeof value === 'string' && pxToVwRE.test(value))
           i[1] = value.replace(pxToVwRE, (_, p1) => `${p1}rpx`)
       })
+
+      // if (prefix !== 'un-') {
+      //   return (obj) => {
+      //     obj.entries.forEach((i) => {
+      //       i[0] = i[0].replace(/^--un-/, `--${prefix}`)
+      //       if (typeof i[1] === 'string')
+      //         i[1] = i[1].replace(/var\(--un-/g, `var(--${prefix}`)
+      //     })
+      //   }
+      // }
 
       // 是否转义class
       if (options.transform)
