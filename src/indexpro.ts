@@ -41,13 +41,16 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
     // 此处置空，避免 presetUno 里面的 postprocess 重复处理
   }
 
-  // 此处因为 preflight: false 所以 presetUno 里面的 preflights 不会生效
-  // 并且因为 options.variablePrefix 没有设置，所以也不会有 postprocess
+  // 此处重写了 postprocess 和 preflights
   // 实现参考了 presetUno 嵌入 presetWindicss 的方式
-  const uno = presetUno({ ...options, preflight: false })
+  const uno = presetUno(options)
   return {
     ...uno,
     name: 'unocss-preset-weapp-pro',
+    theme: {
+      ...uno.theme,
+      transformRules: options.transformRules,
+    },
     postprocess(css: UtilObject) {
       // 处理单位
       pxToRpx(css)
@@ -80,4 +83,3 @@ function varPrefix(prefix: string, obj: UtilObject) {
     })
   }
 }
-export default presetWeapp

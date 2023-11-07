@@ -3,7 +3,7 @@ import { expect, test } from 'vitest'
 import presetUno from '@unocss/preset-uno'
 import presetRemToPx from '@unocss/preset-rem-to-px'
 
-import presetWeapp, { prefilights } from '../src/indexpro'
+import presetWeapp from '../src/indexpro'
 
 const uniapp_750 = createGenerator({
   presets: [
@@ -12,7 +12,6 @@ const uniapp_750 = createGenerator({
     presetWeapp({
       isH5: false,
       platform: 'uniapp',
-      variablePrefix: 'uni2',
     }),
   ],
 })
@@ -43,6 +42,6 @@ test('should works', async () => {
       .w-1{width:4rpx;}
       .gap2{gap:8rpx;}
       .-p2{padding:-8rpx;}
-      .color-black{--uni2text-opacity:1;color:rgb(0 0 0 / var(--uni2text-opacity));}"
+      .color-black{--un-text-opacity:1;color:rgb(0 0 0 / var(--un-text-opacity));}"
     `)
 })
