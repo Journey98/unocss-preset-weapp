@@ -65,22 +65,10 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
     name: 'unocss-preset-weapp-pro',
     postprocess(css: UtilObject) {
       // 处理单位
-      const pxToVwRE = /(-?[\.\d]+)px/g
-      css.entries.forEach((i) => {
-        const value = i[1]
-        if (typeof value === 'string' && pxToVwRE.test(value))
-          i[1] = value.replace(pxToVwRE, (_, p1) => `${p1}rpx`)
-      })
+      pxToRpx(css)
 
-      // if (prefix !== 'un-') {
-      //   return (obj) => {
-      //     obj.entries.forEach((i) => {
-      //       i[0] = i[0].replace(/^--un-/, `--${prefix}`)
-      //       if (typeof i[1] === 'string')
-      //         i[1] = i[1].replace(/var\(--un-/g, `var(--${prefix}`)
-      //     })
-      //   }
-      // }
+      // 处理css变量前缀
+      options.variablePrefix && varPrefix(options.variablePrefix, css)
 
       // 是否转义class
       if (options.transform)
@@ -90,4 +78,22 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
   }
 }
 
+function pxToRpx(css: UtilObject) {
+  const pxToVwRE = /(-?[\.\d]+)px/g
+  css.entries.forEach((i) => {
+    const value = i[1]
+    if (typeof value === 'string' && pxToVwRE.test(value))
+      i[1] = value.replace(pxToVwRE, (_, p1) => `${p1}rpx`)
+  })
+}
+
+function varPrefix(prefix: string, obj: UtilObject) {
+  if (prefix !== 'un-') {
+    obj.entries.forEach((i) => {
+      i[0] = i[0].replace(/^--un-/, `--${prefix}`)
+      if (typeof i[1] === 'string')
+        i[1] = i[1].replace(/var\(--un-/g, `var(--${prefix}`)
+    })
+  }
+}
 export default presetWeapp
