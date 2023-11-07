@@ -7,7 +7,7 @@ import presetWeapp, { prefilights } from '../src/indexpro'
 
 const uniapp_750 = createGenerator({
   presets: [
-    presetUno({ preflight: false }),
+    // presetUno({ preflight: false, prefix: 'uni2' }),
     presetRemToPx(),
     presetWeapp({
       isH5: false,

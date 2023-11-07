@@ -1,5 +1,8 @@
 import type { Preset, PresetOptions, UtilObject } from '@unocss/core'
 import { cacheTransformEscapESelector, defaultRules } from 'unplugin-transform-class/utils'
+import presetRemToPx from '@unocss/preset-rem-to-px'
+import presetUno from '@unocss/preset-uno'
+import type { PresetUnoOptions } from '@unocss/preset-uno'
 
 // import type { Theme, ThemeAnimation } from './theme'
 import preflights from './preflights'
@@ -15,7 +18,7 @@ export const prefilights = {
   uniappPrefix: ['uni-page-body,::before,::after'],
 }
 
-export interface PresetWeappOptions extends PresetOptions {
+export interface PresetWeappOptions extends PresetUnoOptions {
   /**
    * 是否是h5
    *
@@ -39,12 +42,12 @@ export interface PresetWeappOptions extends PresetOptions {
    * @default https://github.com/MellowCo/unplugin-transform-class#options
    */
   transformRules?: Record<string, string>
-  /**
-   * Utils prefix
-   *
-   * @default undefined
-   */
-  prefix?: string | string[]
+  // /**
+  //  * Utils prefix
+  //  *
+  //  * @default undefined
+  //  */
+  // prefix?: string | string[]
 
 }
 
@@ -56,16 +59,18 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
     transformRules: defaultRules,
     preflight: true,
     ...options,
+    // 此处置空，避免 presetUno 里面的 postprocess 重复处理
+    variablePrefix: '',
   }
 
-  // const uno = presetUno({ ...options, preflight: false })
+  // 此处因为 preflight: false 所以 presetUno 里面的 preflights 不会生效
+  // 并且因为 options.variablePrefix 没有设置，所以也不会有 postprocess
+  // 实现参考了 presetUno 嵌入 presetWindicss 的方式
+  const uno = presetUno({ ...options, preflight: false })
   return {
-    // ...uno,
-    name: 'unocss-preset-weapp',
+    ...uno,
+    name: 'unocss-preset-weapp-pro',
     postprocess(css: UtilObject) {
-      // if (options.prefix)
-      // uno.postprocess(css)
-
       // 处理单位
       const pxToVwRE = /(-?[\.\d]+)px/g
       css.entries.forEach((i) => {
