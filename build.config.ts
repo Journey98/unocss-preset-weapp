@@ -3,13 +3,7 @@ import { isWindows } from 'std-env'
 
 export default defineBuildConfig({
   entries: [
-    'src/index',
-    'src/theme',
-    'src/utils',
-    'src/rules',
-    'src/colors',
-    'src/variants',
-    'src/transformer',
+    'src/indexpro',
   ],
   clean: true,
   declaration: true,
@@ -20,4 +14,5 @@ export default defineBuildConfig({
     },
   },
   failOnWarn: !isWindows,
+  externals: ['@unocss/preset-uno', '@unocss/core', 'unplugin-transform-class/utils'],
 })

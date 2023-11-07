@@ -72,7 +72,7 @@
     "build": "unbuild",
     "stub": "unbuild --stub",
     "test": "vitest",
-    "test2": "vitest -u ./test2/*.spec.ts",
+    "test2": "vitest -u",
     "taze": "taze minor -wI",
     "uniapp3": "npm -C examples/uniapp_vue3 run dev:mp-weixin",
     "uniapp3:h5": "npm run build && npm -C examples/uniapp_vue3 run dev:h5",

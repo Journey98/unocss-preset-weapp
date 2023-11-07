@@ -1,22 +1,8 @@
-import type { Preset, PresetOptions, UtilObject } from '@unocss/core'
+import type { Preset, UtilObject } from '@unocss/core'
 import { cacheTransformEscapESelector, defaultRules } from 'unplugin-transform-class/utils'
-import presetRemToPx from '@unocss/preset-rem-to-px'
 import presetUno from '@unocss/preset-uno'
 import type { PresetUnoOptions } from '@unocss/preset-uno'
-
-// import type { Theme, ThemeAnimation } from './theme'
 import preflights from './preflights'
-
-// export { theme, colors } from './theme'
-
-// support custom shadow color
-// export type { ThemeAnimation, Theme }
-
-export const prefilights = {
-  wxPrefix: ['page,::before,::after'],
-  taroPrefix: ['*,::before,::after'],
-  uniappPrefix: ['uni-page-body,::before,::after'],
-}
 
 export interface PresetWeappOptions extends PresetUnoOptions {
   /**
@@ -53,7 +39,6 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
     preflight: true,
     ...options,
     // 此处置空，避免 presetUno 里面的 postprocess 重复处理
-    variablePrefix: '333',
   }
 
   // 此处因为 preflight: false 所以 presetUno 里面的 preflights 不会生效
@@ -71,8 +56,7 @@ export function presetWeapp(options: PresetWeappOptions = {}): Preset {
       options.variablePrefix && varPrefix(options.variablePrefix, css)
 
       // 是否转义class
-      if (options.transform)
-        css.selector = cacheTransformEscapESelector(css.selector, options.transformRules)
+      options.transform && (css.selector = cacheTransformEscapESelector(css.selector, options.transformRules))
     },
     preflights: options.preflight ? preflights(options.isH5!, options.platform!) : [],
   }
