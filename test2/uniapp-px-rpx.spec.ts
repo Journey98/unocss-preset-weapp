@@ -16,16 +16,6 @@ const uniapp_750 = createGenerator({
   ],
 })
 
-const size = [
-  'w-100px',
-  'w-100',
-  'w-100rpx',
-
-  'text-base',
-  'text-16px',
-  'm-6',
-]
-
 // test('uniapp_750', async () => {
 //   const code = size.join(' ')
 //   const { css } = await uniapp_750.generate(code)

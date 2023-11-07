@@ -42,13 +42,6 @@ export interface PresetWeappOptions extends PresetUnoOptions {
    * @default https://github.com/MellowCo/unplugin-transform-class#options
    */
   transformRules?: Record<string, string>
-  // /**
-  //  * Utils prefix
-  //  *
-  //  * @default undefined
-  //  */
-  // prefix?: string | string[]
-
 }
 
 export function presetWeapp(options: PresetWeappOptions = {}): Preset {
